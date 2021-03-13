@@ -19,8 +19,7 @@ const getQuote = (req, res) => {
   const quote = getRandomElement(quotes);
   res
     .status(200)
-    .json({ status: 'successful', data: { quote } })
-    );
+    .json({ status: 'successful', data: { quote } });
 };
 
 const postQuote = (req, res) => {
