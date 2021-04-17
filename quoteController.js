@@ -1,7 +1,14 @@
 const { getRandomElement } = require('./utils');
-const { quotes } = require('./data');
+const superagent = require('superagent');
+
+let quotes;
+(async () => {
+  const data = await superagent.get('https://type.fit/api/quotes');
+  quotes = Array.from(JSON.parse(data.text));
+})();
 
 exports.getAllQuotes = (req, res) => {
+  console.log(Array.isArray(quotes));
   res.status(200).json({
     status: 'successfil',
     data: {
@@ -16,11 +23,11 @@ exports.getQuote = (req, res) => {
 };
 
 exports.postQuote = (req, res) => {
-  const quote = req.query.quote;
-  const person = req.query.person;
-  if (quote && person) {
-    quotes.push({ quote, person });
-    res.status(200).json({ status: 'successful', data: { quote, person } });
+  const text = req.query.quote;
+  const author = req.query.person;
+  if (text && author) {
+    quotes.push({ text, author });
+    res.status(200).json({ status: 'successful', data: { text, author } });
   } else {
     res.status(400).json({
       status: 'fail',
