@@ -2,6 +2,7 @@ const { getRandomElement } = require('./utils');
 const superagent = require('superagent');
 
 let quotes;
+//Populate quotes from a public API
 (async () => {
   const data = await superagent.get('https://type.fit/api/quotes');
   quotes = Array.from(JSON.parse(data.text));
