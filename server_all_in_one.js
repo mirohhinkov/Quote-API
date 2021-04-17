@@ -23,8 +23,8 @@ const getQuote = (req, res) => {
 };
 
 const postQuote = (req, res) => {
-  const text = req.query.text;
-  const author = req.query.author;
+  const text = req.body.text;
+  const author = req.body.author;
   if (text && author) {
     quotes.push({ text, author });
     res.status(200).json({ status: 'successful', data: { text, author } });
